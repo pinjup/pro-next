@@ -30,6 +30,13 @@ function useProvideAuth() {
             { email, password },
             options
         );
+
+        if (access_token) {
+            const token = access_token.access_token;
+            Cookie.set('token', token, { expires: 5 });
+
+            axios.defaults.headers.Authorization = `Bearer ${token}`;
+        }
     };
 
     return { user, signIn };
